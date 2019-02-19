@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -76,10 +78,37 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 loginEditor.putString("name",name.getText().toString());
-                loginEditor.putString("psd",psd,getText().toString());
+                loginEditor.putString("psd",psd.getText().toString());
                 loginEditor.putBoolean("isSavePsd",rememberPsdBox.isChecked());
+                loginEditor.commit();
+
+                MainActivity.this.setContentView(R.layout.activity_welcome);
+                userInfo = (TextView)findViewById(R.id.userInfo);
+                userInfo.setText("欢迎您："+name.getText().toString()+",登陆成功！");
             }
         });
     }
 
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.main,menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            //单机注销菜单
+            case R.id.menu_settings:
+                loginEditor.putBoolean("isAutoLogin",false);
+                loginEditor.commit();
+                onCreate(null);
+                break;
+            //单机退出按钮
+            case R.id.exit:
+                this.finish();
+                break;
+            default:
+                break;
+        }
+        return  true;
+    }
 }
