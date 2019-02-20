@@ -80,6 +80,7 @@ public class MainActivity extends Activity {
                 loginEditor.putString("name",name.getText().toString());
                 loginEditor.putString("psd",psd.getText().toString());
                 loginEditor.putBoolean("isSavePsd",rememberPsdBox.isChecked());
+                loginEditor.putBoolean("isAutoLogin",autoLoginBox.isChecked());
                 loginEditor.commit();
 
                 MainActivity.this.setContentView(R.layout.activity_welcome);
@@ -109,6 +110,6 @@ public class MainActivity extends Activity {
             default:
                 break;
         }
-        return  true;
+        return true;
     }
 }
